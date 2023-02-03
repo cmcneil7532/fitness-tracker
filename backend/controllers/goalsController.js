@@ -1,37 +1,45 @@
-const workoutModel = require('../models/createWorkout')
+const asyncHandler = require("express-async-handler");
 
-//Desc Get 
+//Desc Get
 //Route GET fitness/goals
-const getGoals = async(req,res)=>{
-
-
-
-    res.status(200).json({
-        message: 'Get goals'
-    })
-}
-//Desc'Set 
+const getGoals = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    message: "Get goals",
+  });
+});
+//Desc'Set
 //Route'POST fitness/goals
-const setGoals = async(req,res)=>{
-    res.status(200).json({
-        message: 'Set goals'
-    })
-}
-//Desc UPDATE 
+const setGoals = asyncHandler(async (req, res) => {
+  if (
+    !req.body.reps ||
+    !req.body.workout ||
+    !req.body.sets ||
+    !req.body.weight
+  ) {
+    res.status(400);
+    throw new Error("Please add all specified fields");
+  }
+  res.status(200).json({ message: "Set goal" });
+});
+//Desc UPDATE
 //Route PATCH fitness/goals
-const updateGoals = async(req,res)=>{
-    res.status(200).json({
-        message: 'UPDATE goals'
-    })
-}
-//Desc DELETE 
-//Route DELETE fitness/goals
-const deleteGoals = async(req,res)=>{
-    res.status(200).json({
-        message: 'DELETE goals'
-    })
-}
 
-module.exports={
-    getGoals, setGoals, updateGoals, deleteGoals
-}
+const updateGoals = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    message: "UPDATE goals",
+  });
+});
+//Desc DELETE
+//Route DELETE fitness/goals
+const deleteGoals = asyncHandler(async (req, res) => {
+  res.status(200).json({
+    message: "DELETE goals",
+  });
+});
+
+module.exports = {
+  getGoals,
+  setGoals,
+  updateGoals,
+  deleteGoals,
+};

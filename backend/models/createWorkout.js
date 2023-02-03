@@ -1,32 +1,44 @@
 //Model for user to plug in data
 const mongoose = require("mongoose");
 
-const createWorkout = new mongoose.Schema(
+const createWorkout = mongoose.Schema(
   {
     user: {
       //Create a random object id
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "user",
     },
     workout: {
       type: String,
       required: [true, "Please add a workout Ex. Squat, Lunges, or Bench"],
     },
-    set: {
+    sets: {
       type: Number,
-      min: 1,
-      max: 7,
       required: true,
+      unique: true,
+      validiate: {
+        validator: Number.isInteger,
+        message: "Value is not an integer value",
+      },
     },
-    repititions: {
+    reps: {
       type: Number,
-      min: 1,
       required: true,
+      unique: true,
+      validiate: {
+        validator: Number.isInteger,
+        message: "Value is not an integer value",
+      },
     },
     weight: {
       type: Number,
-      min: 1,
-      required: true
+      required: true,
+      unique: true,
+      validiate: {
+        validator: Number.isInteger,
+        message: "Value is not an integer value",
+      },
     },
     notes: {
       type: String,
@@ -39,4 +51,4 @@ const createWorkout = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('workoutModel', createWorkout)
+module.exports = mongoose.model("workoutModel", createWorkout);
