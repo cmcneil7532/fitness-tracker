@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //Create routes
 app.use("/fitness/goals", require("./routes/goalsRoutes"));
+app.use('/fitness/login', require('./routes/userRoutes'))
 app.use(errorHandler);
 
 

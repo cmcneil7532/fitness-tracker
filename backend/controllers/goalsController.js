@@ -1,4 +1,4 @@
-const { ThemeProvider } = require("@aws-amplify/ui-react");
+
 const asyncHandler = require("express-async-handler");
 const workoutModel = require("../models/createWorkout");
 
