@@ -39,7 +39,7 @@ const updateGoals = asyncHandler(async (req, res) => {
 
   if (!goal) {
     res.status(400);
-    throw new Error("Goal not found");
+    throw new Error("User not found");
   }
 
   const updatedGoal = await workoutModel.findByIdAndUpdate(
@@ -51,13 +51,22 @@ const updateGoals = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.status(200).json(updatedGoal);
+  res.status(200).json({ message: "Goal was updated" });
 });
 //Desc DELETE
 //Route DELETE fitness/goals
 const deleteGoals = asyncHandler(async (req, res) => {
+  //grab the goal by the id
+  const goal =  await workoutModel.findById(req.params.id)
+  //If goal isnt present throw an err
+  if(!goal){
+    res.status(400);
+    throw new Error('User not found')
+  }
+  //if Goal exist remove the document
+  await goal.remove()
   res.status(200).json({
-    message: "DELETE goals",
+    message: "Goal deleted",
   });
 });
 
