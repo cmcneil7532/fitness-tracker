@@ -3,12 +3,6 @@ const mongoose = require("mongoose");
 
 const createWorkout = mongoose.Schema(
   {
-    user: {
-      //Create a random object id
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "user",
-    },
     workout: {
       type: String,
       required: [true, "Please add a workout Ex. Squat, Lunges, or Bench"],
@@ -16,7 +10,7 @@ const createWorkout = mongoose.Schema(
     sets: {
       type: Number,
       required: true,
-      unique: true,
+
       validiate: {
         validator: Number.isInteger,
         message: "Value is not an integer value",
@@ -25,7 +19,7 @@ const createWorkout = mongoose.Schema(
     reps: {
       type: Number,
       required: true,
-      unique: true,
+
       validiate: {
         validator: Number.isInteger,
         message: "Value is not an integer value",
@@ -34,7 +28,7 @@ const createWorkout = mongoose.Schema(
     weight: {
       type: Number,
       required: true,
-      unique: true,
+
       validiate: {
         validator: Number.isInteger,
         message: "Value is not an integer value",
