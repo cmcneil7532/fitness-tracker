@@ -1,22 +1,30 @@
 //Desc Get 
 //Route GET fitness/goals
 const getGoals = async(req,res)=>{
-    res.send('Get Goals function')
+    res.status(200).json({
+        message: 'Get goals'
+    })
 }
-//Desc Get 
-//Route GET fitness/goals
+//Desc'Set 
+//Route'Set fitness/goals
 const setGoals = async(req,res)=>{
-    res.send('Set Goals function')
+    res.status(200).json({
+        message: 'Set goals'
+    })
 }
-//Desc Get 
-//Route GET fitness/goals
+//Desc UPDATE 
+//Route UPDATE fitness/goals
 const updateGoals = async(req,res)=>{
-    res.send('Update Goals function')
+    res.status(200).json({
+        message: 'UPDATE goals'
+    })
 }
-//Desc Get 
-//Route GET fitness/goals
+//Desc DELTE 
+//Route DELTE fitness/goals
 const deleteGoals = async(req,res)=>{
-    res.send('Delete Goals function')
+    res.status(200).json({
+        message: 'DELETE goals'
+    })
 }
 
 module.exports={
