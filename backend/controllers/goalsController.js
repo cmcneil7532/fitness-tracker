@@ -27,6 +27,7 @@ const setGoals = asyncHandler(async (req, res) => {
     sets: req.body.sets,
     reps: req.body.reps,
     weight: req.body.weight,
+    notes: req.body.notes
   });
   res.status(201).json(workout);
 });
