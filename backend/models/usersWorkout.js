@@ -17,10 +17,6 @@ const createUser = mongoose.Schema(
       required: [true, "Please enter a password"],
   
     },
-    confirmPassword: {
-      type: String,
-      require: [true, "Password must match"],
-    },
   },
   {
     timestamps: true,

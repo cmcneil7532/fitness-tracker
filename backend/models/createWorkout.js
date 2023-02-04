@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const createWorkout = mongoose.Schema(
   {
+    user:{
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    },
     workout: {
       type: String,
       required: [true, "Please add a workout Ex. Squat, Lunges, or Bench"],
