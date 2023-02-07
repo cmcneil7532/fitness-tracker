@@ -2,7 +2,6 @@ const CreateUserModel = require("../models/usersWorkout");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
-const e = require("express");
 
 //Desc POST
 //Route POST
@@ -41,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
   //Hash Password to prevent text passwords stored in our database
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-
+  //Values will be held in mongoDB
   const createUser = await CreateUserModel.create({
     name,
     email: email.toLowerCase(),
@@ -66,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //Route GET
 //Private
 const aboutMe = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "About User" });
+  res.status(200).json(req.user);
 });
 
 //Generate a token

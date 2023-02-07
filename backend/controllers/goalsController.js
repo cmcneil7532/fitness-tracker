@@ -1,12 +1,12 @@
-
 const asyncHandler = require("express-async-handler");
 const workoutModel = require("../models/createWorkout");
+
 
 //Desc Get
 //Route GET fitness/goals
 const getGoals = asyncHandler(async (req, res) => {
   //find method will grab everything in the query
-  const goal = await workoutModel.find();
+  const goal = await workoutModel.find({ user: req.user.id });
 
   res.status(200).json(goal);
 });
@@ -27,7 +27,8 @@ const setGoals = asyncHandler(async (req, res) => {
     sets: req.body.sets,
     reps: req.body.reps,
     weight: req.body.weight,
-    notes: req.body.notes
+    notes: req.body.notes,
+    user: req.user,
   });
   res.status(201).json(workout);
 });
@@ -37,35 +38,43 @@ const setGoals = asyncHandler(async (req, res) => {
 const updateGoals = asyncHandler(async (req, res) => {
   //Get the goal to update
   const goal = await workoutModel.findById(req.params.id);
-
+  //check the id in the path route
   if (!goal) {
+    res.status(400);
+    throw new Error("Goal not found");
+  }
+
+  // If there is no user found
+  if (!req.user) {
     res.status(400);
     throw new Error("User not found");
   }
 
-  const updatedGoal = await workoutModel.findByIdAndUpdate(
-    //Grab the id of the user
+  if (goal.user.toString() !== req.user.id) {
+    res.status(400);
+    throw new Error("User not allowed");
+  }
+  const updateGoals = await workoutModel.findByIdAndUpdate(
     req.params.id,
-    //Allow updates to the body
     req.body,
-    //Set true
-    { new: true }
+    {
+      new: true,
+    }
   );
-
-  res.status(200).json({ message: "Goal was updated" });
+  res.status(200).json(updateGoals);
 });
 //Desc DELETE
 //Route DELETE fitness/goals
 const deleteGoals = asyncHandler(async (req, res) => {
   //grab the goal by the id
-  const goal =  await workoutModel.findById(req.params.id)
+  const goal = await workoutModel.findById(req.params.id);
   //If goal isnt present throw an err
-  if(!goal){
+  if (!goal) {
     res.status(400);
-    throw new Error('User not found')
+    throw new Error("User not found");
   }
   //if Goal exist remove the document
-  await goal.remove()
+  await goal.remove();
   res.status(200).json({
     message: "Goal deleted",
   });
