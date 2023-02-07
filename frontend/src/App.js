@@ -1,23 +1,25 @@
-import "./App.css";
-import Calculator from "./pages/Calculator";
-import Dashboard from "./pages/Dashboard";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import History from "./pages/History";
+import Calculator from "./pages/Calculator";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar";
+import Navbar from "./Component/Navbar";
 function App() {
   return (
-    <div className="App">
+    <div>
       <BrowserRouter>
-        <Navbar />
+      <div className="container">
+        <Navbar/>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/" element={<Home />} />
           <Route path="/history" element={<History />} />
+          <Route path="/calculator" element={<Calculator />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+        </div>
       </BrowserRouter>
     </div>
   );
