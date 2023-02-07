@@ -1,12 +1,12 @@
 const asyncHandler = require("express-async-handler");
 const workoutModel = require("../models/createWorkout");
 
-
 //Desc Get
 //Route GET fitness/goals
 const getGoals = asyncHandler(async (req, res) => {
-  //find method will grab everything in the query
-  const goal = await workoutModel.find({ user: req.user.id });
+  //
+  const goal = await workoutModel.find({user: req.user.id});
+  console.log(goal);
 
   res.status(200).json(goal);
 });
@@ -22,19 +22,19 @@ const setGoals = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please add all specified fields");
   }
+  //Uploaded to mongoDB
   const workout = await workoutModel.create({
     workout: req.body.workout,
     sets: req.body.sets,
     reps: req.body.reps,
     weight: req.body.weight,
     notes: req.body.notes,
-    user: req.user,
+    user: req.user.id,
   });
   res.status(201).json(workout);
 });
 //Desc UPDATE
 //Route PATCH fitness/goals
-
 const updateGoals = asyncHandler(async (req, res) => {
   //Get the goal to update
   const goal = await workoutModel.findById(req.params.id);
