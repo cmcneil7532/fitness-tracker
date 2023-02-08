@@ -14,7 +14,17 @@ function Register() {
   //Deconstruct the form data
   const { name, email, password, password2 } = formData;
 
-  const onChange = () => {};
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      //Create our key value pair
+      [e.target.name]: [e.target.value],
+    }));
+  };
+  const onSubmit = (e) => {
+    //Prevent default behvior in this case the page will not reload once our form in submitted
+    e.preventDefault();
+  };
 
   return (
     <div>
@@ -24,9 +34,10 @@ function Register() {
         <p>Please Create an account</p>
       </section>
       <section className="form">
-        <form>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <input
+              name="name"
               type="text"
               value={name}
               id="name"
@@ -37,6 +48,7 @@ function Register() {
           </div>
           <div className="form-group">
             <input
+              name="email"
               type="email"
               value={email}
               id="email"
@@ -47,6 +59,7 @@ function Register() {
           </div>
           <div className="form-group">
             <input
+              name="password"
               type="password"
               value={password}
               id="password"
@@ -57,6 +70,7 @@ function Register() {
           </div>
           <div className="form-group">
             <input
+              name="password2"
               type="password"
               value={password2}
               id="password2"
@@ -65,12 +79,12 @@ function Register() {
               placeholder="Confirm password"
             />
           </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-block">
+              Submit
+            </button>
+          </div>
         </form>
-        <div className="form-group"> 
-        <button type="submit" className="btn btn-block">
-          Submit
-        </button>
-        </div>
       </section>
     </div>
   );

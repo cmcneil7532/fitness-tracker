@@ -5,7 +5,7 @@ import History from "./pages/History";
 import Calculator from "./pages/Calculator";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Navbar from "./Component/Navbar";
+import Navbar from './components/Navbar'
 function App() {
   return (
     <div>
